@@ -6,460 +6,7 @@
 <title>Le bianche scogliere — Dentro il Quadro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --cream: #f5f0e8;
-    --parchment: #ede4d0;
-    --gold: #b8942a;
-    --gold-light: #d4aa3a;
-    --dark: #1a1510;
-    --brown: #3d2b1f;
-    --text: #2c1f14;
-    --muted: #7a6552;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background-color: var(--dark);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    background: linear-gradient(to bottom, rgba(26,21,16,0.97) 0%, rgba(26,21,16,0.0) 100%);
-  }
-
-  .back-link {
-    text-decoration: none;
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s;
-  }
-  .back-link:hover { color: var(--gold-light); }
-  .back-link::before { content: '←'; }
-
-  .nav-title {
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    color: rgba(245,240,232,0.35);
-  }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    z-index: 1;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 80px;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Caspar_David_Friedrich_-_Chalk_Cliffs_on_R%C3%BCgen_-_Google_Art_Project.jpg/800px-Caspar_David_Friedrich_-_Chalk_Cliffs_on_R%C3%BCgen_-_Google_Art_Project.jpg');
-    background-size: cover;
-    background-position: center 30%;
-    filter: brightness(0.45) sepia(20%);
-    transform: scale(1.04);
-    animation: slowZoom 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes slowZoom {
-    from { transform: scale(1.04); }
-    to   { transform: scale(1.10); }
-  }
-
-  .hero-vignette {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(26,21,16,0.5) 0%, transparent 40%, rgba(26,21,16,0.85) 85%, var(--dark) 100%);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 700px;
-    padding: 0 32px;
-    animation: fadeUp 1.2s ease both;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    color: var(--gold);
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-
-  .hero-title {
-    font-size: clamp(2.8rem, 8vw, 5.5rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: var(--cream);
-  }
-
-  .hero-meta {
-    font-size: 0.9rem;
-    color: rgba(245,240,232,0.5);
-    letter-spacing: 0.1em;
-    margin-bottom: 32px;
-  }
-
-  .scroll-hint {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--gold);
-    font-size: 0.72rem;
-    letter-spacing: 0.25em;
-    font-family: 'Cinzel', serif;
-    animation: pulse 2.5s ease infinite;
-  }
-
-  .scroll-hint::after {
-    content: '';
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: drip 2.5s ease infinite;
-  }
-
-  @keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
-  @keyframes drip  { 0%,100%{transform:scaleY(0.5) translateY(-10px); opacity:0} 50%{transform:scaleY(1) translateY(0); opacity:1} }
-
-  /* DIVIDER */
-  .divider {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 60px 40px 0;
-    color: var(--gold);
-    font-size: 1rem;
-    opacity: 0.5;
-  }
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    max-width: 200px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold));
-  }
-  .divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
-
-  /* STORY SECTIONS */
-  .story {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 40px 120px;
-  }
-
-  .scene {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    margin-bottom: 0;
-    min-height: 640px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .scene.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Alternating: odd = text left / img right, even = img left / text right */
-  .scene:nth-child(odd)  { direction: ltr; }
-  .scene:nth-child(even) { direction: rtl; }
-  .scene:nth-child(even) > * { direction: ltr; }
-
-  .scene-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 72px;
-    background: rgba(30,22,14,0.6);
-    border: 1px solid rgba(184,148,42,0.1);
-    position: relative;
-  }
-
-  /* Corner accent on text panels */
-  .scene-text::before {
-    content: '';
-    position: absolute;
-    top: 16px; left: 16px;
-    width: 24px; height: 24px;
-    border-top: 1px solid var(--gold);
-    border-left: 1px solid var(--gold);
-    opacity: 0.35;
-  }
-
-  .scene-number {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    margin-bottom: 32px;
-    opacity: 0.7;
-  }
-
-  .scene-prose {
-    font-size: clamp(1.2rem, 1.55vw, 1.45rem);
-    line-height: 2.1;
-    font-weight: 300;
-    color: rgba(245,240,232,0.88);
-    font-style: italic;
-  }
-
-  .scene-prose em {
-    font-style: normal;
-    color: var(--cream);
-    font-weight: 400;
-  }
-
-  .scene-image {
-    position: relative;
-    overflow: hidden;
-    min-height: 580px;
-    cursor: zoom-in;
-  }
-
-  .scene-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: sepia(10%) brightness(0.82);
-    transition: filter 0.5s, transform 0.6s;
-  }
-
-  .scene:hover .scene-image img {
-    filter: sepia(5%) brightness(0.92);
-    transform: scale(1.03);
-  }
-
-  /* Gold border on images */
-  .scene-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(184,148,42,0.2);
-    pointer-events: none;
-  }
-
-  /* Caption */
-  .img-caption {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 12px 18px;
-    background: linear-gradient(to top, rgba(15,10,5,0.85), transparent);
-    font-size: 0.72rem;
-    font-style: italic;
-    color: rgba(245,240,232,0.45);
-    letter-spacing: 0.05em;
-  }
-
-  /* Horizontal gold divider between scenes */
-  .scene-sep {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(184,148,42,0.25) 30%, rgba(184,148,42,0.25) 70%, transparent 100%);
-    margin: 0;
-  }
-
-  /* EPILOGUE */
-  .epilogue {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 80px 40px 120px;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  .epilogue-ornament {
-    color: var(--gold);
-    font-size: 1.4rem;
-    letter-spacing: 0.5em;
-    margin-bottom: 40px;
-    opacity: 0.5;
-  }
-
-  .epilogue-text {
-    font-size: 1.15rem;
-    font-style: italic;
-    line-height: 2;
-    color: rgba(245,240,232,0.65);
-    font-weight: 300;
-    margin-bottom: 48px;
-  }
-
-  .epilogue-note {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--muted);
-    margin-bottom: 40px;
-  }
-
-  .back-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    padding: 14px 36px;
-    font-family: 'Cinzel', serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.22em;
-    transition: background 0.3s, color 0.3s;
-  }
-  .back-btn:hover { background: var(--gold); color: var(--dark); }
-
-  /* LIGHTBOX */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(10,7,4,0.96);
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    animation: fadeIn 0.25s ease;
-  }
-  .lightbox.open { display: flex; }
-
-  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-
-  .lightbox-inner {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .lightbox-img {
-    max-width: 100%;
-    max-height: 82vh;
-    object-fit: contain;
-    display: block;
-    border: 1px solid rgba(184,148,42,0.3);
-    box-shadow: 0 0 80px rgba(0,0,0,0.8);
-  }
-
-  .lightbox-caption {
-    font-style: italic;
-    font-size: 0.85rem;
-    color: rgba(245,240,232,0.45);
-    letter-spacing: 0.08em;
-    text-align: center;
-  }
-
-  .lightbox-close {
-    position: fixed;
-    top: 24px; right: 32px;
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-size: 2rem;
-    cursor: pointer;
-    line-height: 1;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    font-family: 'Cinzel', serif;
-  }
-  .lightbox-close:hover { opacity: 1; }
-
-  /* zoom hint overlay on image hover */
-  .scene-image::before {
-    content: '⊕';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.5rem;
-    color: rgba(245,240,232,0.8);
-    opacity: 0;
-    z-index: 2;
-    transition: opacity 0.3s;
-    pointer-events: none;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
-  }
-  .scene-image:hover::before { opacity: 1; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .story { padding: 40px 0 80px; }
-
-    .scene {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto;
-      min-height: unset;
-    }
-
-    .scene:nth-child(even) .scene-image { order: -1; }
-
-    .scene-text { padding: 40px 32px; }
-    .scene-image { min-height: 320px; }
-    .scene-prose { font-size: 1rem; }
-
-    .epilogue { padding: 60px 24px 80px; }
-  }
-</style>
+<link rel="stylesheet" href="single.css">
 </head>
 <body>
 
@@ -475,7 +22,7 @@
   <div class="hero-content">
     <div class="hero-eyebrow">Caspar David Friedrich &nbsp;·&nbsp; 1818</div>
     <h1 class="hero-title">Le bianche scogliere</h1>
-    <p class="hero-meta">Una storia di Serena e Giulia&nbsp;&nbsp;·&nbsp;&nbsp; Ispirata a <em>Le scogliere di gesso a Rügen</em></p>
+    <p class="hero-meta">Una storia di Serena e Giulia&nbsp;&nbsp;·&nbsp;&nbsp; Ispirata a <em>Le bianche scogliere di Rügen</em></p>
     <div class="scroll-hint">Scorri</div>
   </div>
 </section>
@@ -508,12 +55,12 @@
   <!-- SCENA 2: immagine sx, testo dx -->
   <div class="scene">
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Caspar_David_Friedrich_-_Two_Men_Contemplating_the_Moon_-_WGA08250.jpg/600px-Caspar_David_Friedrich_-_Two_Men_Contemplating_the_Moon_-_WGA08250.jpg"
+      <img src="imgs/scogliere_2.png"
            alt="Ombra misteriosa sul sentiero">
       <div class="img-caption">Un'ombra risale il sentiero</div>
     </div>
     <div class="scene-text">
-      <div class="scene-number">II</div>
+      <div class="scene-number">II - Ombra misteriosa sul sentiero</div>
       <p class="scene-prose">
         Ma prima che una sola parola potesse essere pronunciata,
         un'ombra si allungò verso di loro.
@@ -530,7 +77,7 @@
   <!-- SCENA 3: testo sx, immagine dx -->
   <div class="scene">
     <div class="scene-text">
-      <div class="scene-number">III</div>
+      <div class="scene-number">III - Il momento della proposta</div>
       <p class="scene-prose">
         <em>"Sposami."</em>
         La parola uscì tremante mentre lui scivolava su un ginocchio,
@@ -543,7 +90,7 @@
       </p>
     </div>
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Caspar_David_Friedrich_043.jpg/600px-Caspar_David_Friedrich_043.jpg"
+      <img src="imgs/scogliere_3.png"
            alt="La proposta di matrimonio">
       <div class="img-caption">Il momento della proposta</div>
     </div>
@@ -553,12 +100,12 @@
   <!-- SCENA 4: immagine sx, testo dx -->
   <div class="scene">
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Caspar_David_Friedrich_-_Chalk_Cliffs_on_R%C3%BCgen_-_Google_Art_Project.jpg/600px-Caspar_David_Friedrich_-_Chalk_Cliffs_on_R%C3%BCgen_-_Google_Art_Project.jpg"
+      <img src="imgs/scogliere_4.png"
            alt="L'anello che cade">
       <div class="img-caption">Il vuoto sotto le scogliere</div>
     </div>
     <div class="scene-text">
-      <div class="scene-number">IV</div>
+      <div class="scene-number">IV - Il vuoto sotto le scogliere</div>
       <p class="scene-prose">
         Poi, il disastro.
         Un brivido di troppo, un eccesso di emozione, e la presa vacillò.
@@ -575,7 +122,7 @@
   <!-- SCENA 5: testo sx, immagine dx -->
   <div class="scene">
     <div class="scene-text">
-      <div class="scene-number">V</div>
+      <div class="scene-number">V - Sporgendosi sull'orlo</div>
       <p class="scene-prose">
         <em>"Èlì! Lo vedo, è caduto proprio là sotto!"</em>
         gridò lei, sporgendosi dal ciglio del dirupo.
@@ -587,7 +134,7 @@
       </p>
     </div>
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Caspar_David_Friedrich_-_Frau_vor_untergehender_Sonne_%28Frau_vor_der_Abendsonne%29.jpg/560px-Caspar_David_Friedrich_-_Frau_vor_untergehender_Sonne_%28Frau_vor_der_Abendsonne%29.jpg"
+      <img src="imgs/le_bianche_scogliere.jpg"
            alt="La donna si sporge sull'abisso">
       <div class="img-caption">Sporgendosi sull'orlo</div>
     </div>
@@ -597,12 +144,12 @@
   <!-- SCENA 6: immagine sx, testo dx -->
   <div class="scene">
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Caspar_David_Friedrich_-_Der_Morgen_%28Morning%29.jpg/600px-Caspar_David_Friedrich_-_Der_Morgen_%28Morning%29.jpg"
+      <img src="imgs/scogliere_6.png"
            alt="Il finale amaro">
       <div class="img-caption">Ciò che rimane dopo la rivelazione</div>
     </div>
     <div class="scene-text">
-      <div class="scene-number">VI</div>
+      <div class="scene-number">VI - Ciò che rimane dopo la rivelazione</div>
       <p class="scene-prose">
         L'amante si fece avanti con una confidenza che tradiva un legame profondo.
         Ignorando il fidanzato, si rivolse a lei con un'intimità quasi brutale:
