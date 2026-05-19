@@ -202,7 +202,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 0;
     margin-bottom: 0;
-    min-height: 520px;
+    min-height: 640px;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -222,7 +222,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 64px 56px;
+    padding: 80px 72px;
     background: rgba(30,22,14,0.6);
     border: 1px solid rgba(184,148,42,0.1);
     position: relative;
@@ -241,16 +241,16 @@
 
   .scene-number {
     font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     letter-spacing: 0.3em;
     color: var(--gold);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     opacity: 0.7;
   }
 
   .scene-prose {
-    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-    line-height: 1.95;
+    font-size: clamp(1.2rem, 1.55vw, 1.45rem);
+    line-height: 2.1;
     font-weight: 300;
     color: rgba(245,240,232,0.88);
     font-style: italic;
@@ -265,7 +265,8 @@
   .scene-image {
     position: relative;
     overflow: hidden;
-    min-height: 480px;
+    min-height: 580px;
+    cursor: zoom-in;
   }
 
   .scene-image img {
@@ -359,6 +360,80 @@
   }
   .back-btn:hover { background: var(--gold); color: var(--dark); }
 
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10,7,4,0.96);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 0.25s ease;
+  }
+  .lightbox.open { display: flex; }
+
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    display: block;
+    border: 1px solid rgba(184,148,42,0.3);
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  }
+
+  .lightbox-caption {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.45);
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 24px; right: 32px;
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    font-family: 'Cinzel', serif;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* zoom hint overlay on image hover */
+  .scene-image::before {
+    content: '⊕';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: rgba(245,240,232,0.8);
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  }
+  .scene-image:hover::before { opacity: 1; }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -378,8 +453,8 @@
 
     .scene:nth-child(even) .scene-image { order: -1; }
 
-    .scene-text { padding: 36px 28px; }
-    .scene-image { min-height: 280px; }
+    .scene-text { padding: 40px 32px; }
+    .scene-image { min-height: 320px; }
     .scene-prose { font-size: 1rem; }
 
     .epilogue { padding: 60px 24px 80px; }
@@ -400,7 +475,7 @@
   <div class="hero-content">
     <div class="hero-eyebrow">Caspar David Friedrich &nbsp;·&nbsp; 1818</div>
     <h1 class="hero-title">Le bianche scogliere</h1>
-    <p class="hero-meta">Una storia di Serena e …&nbsp;&nbsp;·&nbsp;&nbsp; Ispirata a <em>Le scogliere di gesso a Rügen</em></p>
+    <p class="hero-meta">Una storia di Serena e Giulia&nbsp;&nbsp;·&nbsp;&nbsp; Ispirata a <em>Le scogliere di gesso a Rügen</em></p>
     <div class="scroll-hint">Scorri</div>
   </div>
 </section>
@@ -413,7 +488,7 @@
   <!-- SCENA 1: testo sx, immagine dx -->
   <div class="scene">
     <div class="scene-text">
-      <div class="scene-number">I</div>
+      <div class="scene-number">I - Due figure sull'orlo del mondo</div>
       <p class="scene-prose">
         Il mondo sembrava fermarsi sull'orlo di quelle scogliere bianche.
         Mentre il sole iniziava la sua lenta discesa verso l'orizzonte,
@@ -423,7 +498,7 @@
       </p>
     </div>
     <div class="scene-image">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/600px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg"
+      <img src="imgs/scogliere_1.png"
            alt="Coppia alle scogliere al tramonto">
       <div class="img-caption">Due figure sull'orlo del mondo</div>
     </div>
@@ -553,8 +628,17 @@
   <a class="back-btn" href="index.html">← Torna alla galleria</a>
 </section>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Chiudi">✕</button>
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
 <script>
-  // Intersection Observer for scroll reveal
+  // Scroll reveal
   const scenes = document.querySelectorAll('.scene');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -564,8 +648,35 @@
       }
     });
   }, { threshold: 0.12 });
-
   scenes.forEach(s => observer.observe(s));
+
+  // Lightbox
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightbox-img');
+  const lbCap   = document.getElementById('lightbox-caption');
+  const lbClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.scene-image').forEach(container => {
+    container.addEventListener('click', () => {
+      const img = container.querySelector('img');
+      const cap = container.querySelector('.img-caption');
+      // Use highest-res Wikimedia URL by bumping to 1200px
+      lbImg.src = img.src.replace(/\/\d+px-/, '/1200px-');
+      lbImg.alt = img.alt;
+      lbCap.textContent = cap ? cap.textContent : '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
