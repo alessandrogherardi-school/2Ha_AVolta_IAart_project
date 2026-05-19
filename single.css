@@ -109,18 +109,6 @@
     animation: fadeUp 1.2s ease both;
   }
 
-.hero-disclaimer {
-    font-size: 0.78rem;
-    font-style: italic;
-    color: rgba(245,240,232,0.42);
-    letter-spacing: 0.04em;
-    line-height: 1.7;
-    margin-bottom: 28px;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .hero-eyebrow {
     font-family: 'Cinzel', serif;
     font-size: 0.72rem;
