@@ -280,3 +280,25 @@
     main { padding: 50px 20px 70px; }
     .gallery { grid-template-columns: 1fr; gap: 28px; }
   }
+
+  /* PROJECT DESCRIPTION */
+  .project-body {
+    max-width: 1200px;
+    padding: 12px 0 20px;
+    text-align: justify;
+    columns: 2;
+    column-gap: 60px;
+  }
+
+  .project-text {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    break-inside: avoid;
+  }
+
+  .project-text + .project-text {
+    margin-top: 1.1em;
+  }
